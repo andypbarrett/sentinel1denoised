@@ -20,6 +20,8 @@ from s1denoise.utils import (cost, fit_noise_scaling_coeff, get_DOM_nodeValue, f
 
 SPEED_OF_LIGHT = 299792458.
 
+AUX_URL = 'https://qc.sentinel1.groupcls.com'
+
 
 class Sentinel1Image(Nansat):
     """ Cal/Val routines for Sentinel-1 performed on range noise vector coordinatess"""
@@ -127,7 +129,7 @@ class Sentinel1Image(Nansat):
             yyyy, mm, dd = validitystart[1:5], validitystart[5:7], validitystart[7:9]
             
             # URL based off https://qc.sentinel1.groupcls.com/product/S1A/AUX_CAL/2017/10/17/S1A_AUX_CAL_V20171017T080000_G20201215T124601.SAFE.TGZ
-            cal_url = f'https://qc.sentinel1.groupcls.com/product/{mission}/{prodtype}_{auxtype}/{yyyy}/{mm}/{dd}/{filename}.TGZ'
+            cal_url = f'{AUX_URL}/product/{mission}/{prodtype}_{auxtype}/{yyyy}/{mm}/{dd}/{filename}.TGZ'
             try:
                 print('Trying to download calibration from: ', cal_url)
                 r = requests.get(cal_url, stream=True)
